@@ -1,14 +1,32 @@
 {
   "version": 2,
-  "functions": {
-    "app1e/api/index.php": {
-      "runtime": "vercel-php@0.7.1"
-    }
-  },
-  "rewrites": [
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/app1e/api/index.php"
+      "src": "app1e/api/index.php",
+      "use": "vercel-php@0.7.1",
+      "config": {
+        "includeFiles": [
+          "app1e/api/myproji/**"
+        ]
+      }
+    },
+    {
+      "src": "app1e/api/myproji/res/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf))",
+      "dest": "/app1e/api/myproji/$1"
+    },
+    {
+      "src": "/res/(.*)",
+      "dest": "/app1e/api/myproji/res/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/app1e/api/index.php"
     }
   ]
 }
